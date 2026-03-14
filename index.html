@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Traduttore Musicale Segreto</title>
+</head>
+
+<body>
+
+<h1>Traduttore Musicale</h1>
+
+<h2>Testo → Accordi</h2>
+<input id="testo" placeholder="Scrivi testo..." size="40">
+<button onclick="codifica()">Codifica</button>
+
+<p id="output1"></p>
+
+<h2>Accordi → Testo</h2>
+<input id="accordi" placeholder="Scrivi accordi separati da spazio..." size="60">
+<button onclick="decodifica()">Decodifica</button>
+
+<p id="output2"></p>
+
+<script>
+
+let alfabeto = {
+
+A:"FA6add9",
+B:"RE7sus4",
+C:"LA13#11",
+D:"SOLbsus4",
+E:"REsus4",
+F:"DO7(b5,#9)",
+G:"DOmaj7",
+H:"SIb5",
+I:"LAb13",
+L:"FAm9",
+M:"SOLm7b5",
+N:"SOLaug",
+O:"SIb7(b5,b9)",
+P:"MI",
+Q:"REb",
+R:"DOm",
+S:"MIbdim",
+T:"MIbmaj7",
+U:"MIbm11",
+K:"MI13",
+J:"RE13",
+W:"RE13#11",
+Y:"LAb9#5",
+X:"SIm7#5",
+Z:"SIm7b5"
+
+}
+
+let inverso = {}
+
+for (let lettera in alfabeto){
+inverso[alfabeto[lettera]] = lettera
+}
+
+function codifica(){
+
+let testo = document.getElementById("testo").value.toUpperCase()
+
+let risultato = ""
+
+for (let lettera of testo){
+
+if(alfabeto[lettera]){
+risultato += alfabeto[lettera] + " "
+}
+
+}
+
+document.getElementById("output1").innerText = risultato
+
+}
+
+function decodifica(){
+
+let input = document.getElementById("accordi").value.split(" ")
+
+let risultato = ""
+
+for (let acc of input){
+
+if(inverso[acc]){
+risultato += inverso[acc]
+}
+
+}
+
+document.getElementById("output2").innerText = risultato
+
+}
+
+</script>
+
+</body>
+</html>
