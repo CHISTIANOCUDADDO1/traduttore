@@ -16,7 +16,7 @@
 <p id="output1"></p>
 
 <h2>Accordi → Testo</h2>
-<input id="accordi" placeholder="Scrivi accordi separati da spazio..." size="60">
+<input id="accordi" placeholder="Scrivi accordi separati da spazio o /..." size="60">
 <button onclick="decodifica()">Decodifica</button>
 
 <p id="output2"></p>
@@ -24,7 +24,6 @@
 <script>
 
 let alfabeto = {
-
 A:"FA6add9",
 B:"RE7sus4",
 C:"LA13#11",
@@ -50,49 +49,28 @@ W:"RE13#11",
 Y:"LAb9#5",
 X:"SIm7#5",
 Z:"SIm7b5"
-
 }
 
 let inverso = {}
-
 for (let lettera in alfabeto){
-inverso[alfabeto[lettera]] = lettera
+  inverso[alfabeto[lettera]] = lettera
 }
 
 function codifica(){
-
-let testo = document.getElementById("testo").value.toUpperCase()
-
-let risultato = ""
-
-for (let lettera of testo){
-
-if(alfabeto[lettera]){
-risultato += alfabeto[lettera] + " "
-}
-
-}
-
-document.getElementById("output1").innerText = risultato
-
+  let testo = document.getElementById("testo").value.toUpperCase()
+  let parole = testo.split(" ")
+  let risultato = parole.map(parola => {
+    return parola.split("").map(lettera => alfabeto[lettera] || "").join(" ")
+  }).join(" / ") // tra parole mettiamo "/"
+  document.getElementById("output1").innerText = risultato
 }
 
 function decodifica(){
-
-let input = document.getElementById("accordi").value.split(" ")
-
-let risultato = ""
-
-for (let acc of input){
-
-if(inverso[acc]){
-risultato += inverso[acc]
-}
-
-}
-
-document.getElementById("output2").innerText = risultato
-
+  let input = document.getElementById("accordi").value.split(" / ") // separiamo le parole
+  let risultato = input.map(parola => {
+    return parola.split(" ").map(acc => inverso[acc] || "").join("")
+  }).join(" ") // ricostruiamo le parole
+  document.getElementById("output2").innerText = risultato
 }
 
 </script>
